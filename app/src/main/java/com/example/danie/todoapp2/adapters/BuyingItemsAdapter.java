@@ -1,9 +1,8 @@
 package com.example.danie.todoapp2.adapters;
 
-import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -42,14 +41,13 @@ public class BuyingItemsAdapter extends ArrayAdapter<BuyingItem> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View v = convertView;
-
+    public View getView(int position, View v, ViewGroup parent) {
         if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
             v = vi.inflate(R.layout.layout_buying_item, null);
         }
+
         v.setOnTouchListener(new View.OnTouchListener() {
             private int padding = 0;
             private int initialx = 0;
@@ -57,28 +55,28 @@ public class BuyingItemsAdapter extends ArrayAdapter<BuyingItem> {
             private  ViewHolder viewHolder;
             private boolean running = false;
 
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if ( event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     padding = 0;
                     initialx = (int) event.getX();
                     currentx = (int) event.getX();
-                    viewHolder = ((ViewHolder) v.getTag());
+
+                    // TODO: 26/06/2016 ENCONTRAR E ARMAZENAR O editTextAmount, tirar sua propriedade de alinhamento etc..., para ver se ele arrasta junto.
                 }
-                if ( event.getAction() == MotionEvent.ACTION_MOVE) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     currentx = (int) event.getX();
                     padding = currentx - initialx;
                 }
-                if ( event.getAction() == MotionEvent.ACTION_UP ||
-                        event.getAction() == MotionEvent.ACTION_CANCEL) {
+                if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
                     padding = 0;
                     initialx = 0;
                     currentx = 0;
                 }
-                if(viewHolder != null) {
-                    v.setPadding(padding, 0,0, 0);
-                    Log.v("", (new Integer(padding)).toString());
-                }
+                System.out.println((new Integer(padding)).toString() + "...");
+
+                v.setPadding(padding, 0, 0, 0);
 
                 return true;
             }
