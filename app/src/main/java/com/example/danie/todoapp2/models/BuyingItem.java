@@ -1,5 +1,8 @@
 package com.example.danie.todoapp2.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by danie on 25/06/2016.
  */
@@ -8,6 +11,9 @@ public class BuyingItem {
     private String description;
     private float amount;
     private Greatness greatness;
+
+    public BuyingItem() {
+    }
 
     public BuyingItem(String name, String description, int amount) {
         this(name, description, amount, Greatness.KILOGRAM);
@@ -18,6 +24,20 @@ public class BuyingItem {
         this.setDescription(description);
         this.setAmount(amount);
         this.setGreatness(greatness);
+    }
+
+    public BuyingItem fromJSON(JSONObject json) throws JSONException {
+        BuyingItem buyingItem = new BuyingItem();
+        if (json.has("name"))
+            buyingItem.setName(json.getString("name"));
+        if (json.has("description"))
+            buyingItem.setDescription(json.getString("description"));
+        if (json.has("amount"))
+            buyingItem.setAmount(new Float(json.getString("amount")));
+        if (json.has("greatness"))
+            buyingItem.setGreatness(Greatness.getFromString(json.getString("greatness")));
+
+        return buyingItem;
     }
 
     public float getAmount() {
