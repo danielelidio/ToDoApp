@@ -74,13 +74,27 @@ public class BuyingItem {
     }
 
     public String getShortGreatness() {
-        return Greatness.getShortValue(this.getGreatness(), this.getAmount() > 1);
+        if (this.getGreatness() == Greatness.KILOGRAM && this.getAmount() < 1.0f) {
+            return Greatness.getShortValue(Greatness.GRAM, this.getAmount() * 1000 > 1);
+        } else {
+            return Greatness.getShortValue(this.getGreatness(), this.getAmount() > 1);
+        }
     }
 
     public String getAmountWithGreatness() {
         String str = "";
         if (this.getGreatness() == Greatness.KILOGRAM || this.getGreatness() == Greatness.LITERS) {
-            str += String.format("%.2f", this.getAmount());
+            float amount = this.getAmount();
+            if (this.getGreatness() == Greatness.KILOGRAM) {
+                if (amount < 1.0f) {
+                    amount *= 1000;
+                    str += String.format("%.0f", amount);
+                } else {
+                    str += String.format("%.3f", amount);
+                }
+            } else {
+                str += String.format("%.2f", amount);
+            }
         } else {
             str += String.format("%.0f", this.getAmount());
         }

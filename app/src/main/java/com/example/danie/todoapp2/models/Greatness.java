@@ -7,11 +7,14 @@ public enum Greatness {
     PACKAGE,
     POT,
     KILOGRAM,
+    GRAM,
     LITERS;
 
     public static Greatness getFromString(String greatness) {
         if (greatness.compareTo("KILOGRAM") == 0)
             return Greatness.KILOGRAM;
+        if (greatness.compareTo("GRAM") == 0)
+            return Greatness.GRAM;
         else if (greatness.compareTo("LITERS") == 0)
             return Greatness.LITERS;
         else if (greatness.compareTo("POT") == 0)
@@ -25,6 +28,8 @@ public enum Greatness {
     public static String getValue(Greatness greatness, boolean pural) {
         if (greatness == Greatness.KILOGRAM) {
             return (pural) ? "Kilos" : "Kilo";
+        } else if (greatness == Greatness.GRAM) {
+            return (pural) ? "Gramas" : "Grama";
         } else if (greatness == Greatness.PACKAGE) {
             return (pural) ? "Pacotes" : "Pacote";
         } else if (greatness == Greatness.POT) {
@@ -39,6 +44,8 @@ public enum Greatness {
     public static String getShortValue(Greatness greatness, boolean pural) {
         if (greatness == Greatness.KILOGRAM) {
             return (pural) ? "Kg" : "Kg";
+        } else if (greatness == Greatness.GRAM) {
+            return (pural) ? "Grs" : "gr";
         } else if (greatness == Greatness.PACKAGE) {
             return (pural) ? "Pct's" : "Pct";
         } else if (greatness == Greatness.POT) {
