@@ -9,8 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+
 import com.example.danie.todoapp2.adapters.BuyingItemsAdapter;
 import com.example.danie.todoapp2.models.BuyingItem;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private ListView listViewTasks = null;
@@ -24,11 +27,14 @@ public class MainActivity extends AppCompatActivity {
 
         this.listViewTasks = (ListView)findViewById(R.id.listViewTasks);
 
-        BuyingItemsAdapter buyingItemsAdapter = new BuyingItemsAdapter(this, 0, new BuyingItem[] {
-                new BuyingItem("Produto 1", "Descrição 1", 1, true),
-                new BuyingItem("Produto 2", "Descrição 2", 2, true),
-                new BuyingItem("Produto 3", "Descrição 3", 3, true)
-        });
+        BuyingItemsAdapter buyingItemsAdapter = new BuyingItemsAdapter(this, 0, new ArrayList<BuyingItem>() {{
+            add(new BuyingItem("Produto 1", "Descrição 1", 1, true));
+            add(new BuyingItem("Produto 2", "Descrição 2", 2, true));
+            add(new BuyingItem("Produto 3", "Descrição 3", 3, true));
+            add(new BuyingItem("Produto 4", "Descrição 4", 4, true));
+            add(new BuyingItem("Produto 5", "Descrição 5", 5, true));
+            add(new BuyingItem("Produto 6", "Descrição 6", 6, true));
+        }});
 
         this.listViewTasks.setAdapter(buyingItemsAdapter);
 

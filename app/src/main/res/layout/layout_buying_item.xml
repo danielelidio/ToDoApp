@@ -28,15 +28,24 @@
         android:layout_toEndOf="@+id/textViewNumber"
         android:layout_marginLeft="10dp" />
 
-    <EditText
-        android:layout_width="60dp"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editTextAmount"
-        android:layout_centerVertical="true"
+        android:id="@+id/iconDelete"
+        android:layout_alignTop="@+id/textViewNumber"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="10dp" />
+        android:src="@android:drawable/ic_menu_delete"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1 un."
+        android:textSize="25dp"
+        android:layout_alignBottom="@+id/textViewNumber"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
