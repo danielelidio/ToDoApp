@@ -9,6 +9,19 @@ public enum Greatness {
     KILOGRAM,
     LITERS;
 
+    public static Greatness getFromString(String greatness) {
+        if (greatness == "KILOGRAM")
+            return Greatness.KILOGRAM;
+        else if (greatness == "LITERS")
+            return Greatness.LITERS;
+        else if (greatness == "POT")
+            return Greatness.POT;
+        else if (greatness == "PACKAGE")
+            return Greatness.PACKAGE;
+        else
+            return null;
+    }
+
     public static String getShortValue(Greatness greatness, boolean pural) {
         if (greatness == Greatness.KILOGRAM) {
             return (pural) ? "Kg" : "Kg";
