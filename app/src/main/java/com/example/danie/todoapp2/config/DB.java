@@ -43,14 +43,13 @@ public class DB {
         try {
             FileInputStream fis = context.openFileInput(Config.dbFileName);
             String text = DB.readTextFile(fis);
-            if (text.compareTo("") != 0)
-                json = new JSONArray(DB.readTextFile(fis));
-            else
-                json = new JSONArray();
+            json = new JSONArray(text);
         } catch (JSONException e) {
             e.printStackTrace();
+            System.out.println(e.toString());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            System.out.println(e.toString());
         }
 
         return json;
