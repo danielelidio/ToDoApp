@@ -6,21 +6,25 @@ package com.example.danie.todoapp2.models;
 public class BuyingItem {
     private String name;
     private String description;
-    private int amount;
-    private Boolean isDone;
+    private float amount;
+    private Greatness greatness;
 
-    public BuyingItem(String name, String description, int amount, Boolean isDone) {
-        this.name = name;
-        this.description = description;
-        this.amount = amount;
-        this.isDone = isDone;
+    public BuyingItem(String name, String description, int amount) {
+        this(name, description, amount, Greatness.KILOGRAM);
     }
 
-    public int getAmount() {
+    public BuyingItem(String name, String description, int amount, Greatness greatness) {
+        this.setName(name);
+        this.setDescription(description);
+        this.setAmount(amount);
+        this.setGreatness(greatness);
+    }
+
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
@@ -40,11 +44,26 @@ public class BuyingItem {
         this.description = description;
     }
 
-    public Boolean getDone() {
-        return isDone;
+    public Greatness getGreatness() {
+        return greatness;
     }
 
-    public void setDone(Boolean done) {
-        isDone = done;
+    public void setGreatness(Greatness greatness) {
+        this.greatness = greatness;
+    }
+
+    public String getShortGreatness() {
+        return Greatness.getShortValue(this.getGreatness(), this.getAmount() > 1);
+    }
+
+    public String getAmountWithGreatness() {
+        String str = "";
+        if (this.getGreatness() == Greatness.KILOGRAM || this.getGreatness() == Greatness.LITERS) {
+            str += String.format("%.2f", this.getAmount());
+        } else {
+            str += String.format("%.0f", this.getAmount());
+        }
+
+        return str + " " + this.getShortGreatness();
     }
 }

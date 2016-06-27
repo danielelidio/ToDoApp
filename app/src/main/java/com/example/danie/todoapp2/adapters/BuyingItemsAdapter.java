@@ -122,7 +122,7 @@ public class BuyingItemsAdapter extends ArrayAdapter<BuyingItem> {
 
             textNumber.setText(new Integer(position + 1).toString() + "º");
             textTitle.setText(item.getName());
-            textAmount.setText(new Integer(item.getAmount()).toString());
+            textAmount.setText(item.getAmountWithGreatness());
         }
 
         return v;
@@ -139,4 +139,8 @@ public class BuyingItemsAdapter extends ArrayAdapter<BuyingItem> {
         return label;
     }
 
+    @Override
+    public void remove(BuyingItem object) {
+        super.remove(object);
+    }
 }
