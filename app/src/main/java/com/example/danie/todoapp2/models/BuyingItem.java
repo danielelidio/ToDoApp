@@ -13,6 +13,7 @@ public class BuyingItem {
     private Greatness greatness;
 
     public BuyingItem() {
+        this.setGreatness(Greatness.KILOGRAM);
     }
 
     public BuyingItem(String name, String description, int amount) {
@@ -26,7 +27,7 @@ public class BuyingItem {
         this.setGreatness(greatness);
     }
 
-    public BuyingItem fromJSON(JSONObject json) throws JSONException {
+    public static BuyingItem fromJSON(JSONObject json) throws JSONException {
         BuyingItem buyingItem = new BuyingItem();
         if (json.has("name"))
             buyingItem.setName(json.getString("name"));

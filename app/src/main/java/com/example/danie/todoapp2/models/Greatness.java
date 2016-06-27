@@ -10,13 +10,13 @@ public enum Greatness {
     LITERS;
 
     public static Greatness getFromString(String greatness) {
-        if (greatness == "KILOGRAM")
+        if (greatness.compareTo("KILOGRAM") == 0)
             return Greatness.KILOGRAM;
-        else if (greatness == "LITERS")
+        else if (greatness.compareTo("LITERS") == 0)
             return Greatness.LITERS;
-        else if (greatness == "POT")
+        else if (greatness.compareTo("POT") == 0)
             return Greatness.POT;
-        else if (greatness == "PACKAGE")
+        else if (greatness.compareTo("PACKAGE") == 0)
             return Greatness.PACKAGE;
         else
             return null;
