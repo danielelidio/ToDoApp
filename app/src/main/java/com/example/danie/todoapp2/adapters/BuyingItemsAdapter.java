@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.danie.todoapp2.R;
+import com.example.danie.todoapp2.config.DB;
 import com.example.danie.todoapp2.models.BuyingItem;
 
 import java.util.List;
@@ -98,7 +99,7 @@ public class BuyingItemsAdapter extends ArrayAdapter<BuyingItem> {
 
                     float slidePercentage = padding / (float)metrics.widthPixels;
                     if(this.horizontalSwipe && slidePercentage >= this.deletingDelta) {
-                        self.remove(self.getItem(position));
+                        self.remove(position);
                     }
 
                     padding = 0;
@@ -139,8 +140,9 @@ public class BuyingItemsAdapter extends ArrayAdapter<BuyingItem> {
         return label;
     }
 
-    @Override
-    public void remove(BuyingItem object) {
-        super.remove(object);
+    public void remove(int position) {
+        super.remove(this.getItem(position));
+
+        DB.removeItem(this.context, position);
     }
 }

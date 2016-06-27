@@ -1,8 +1,8 @@
 package com.example.danie.todoapp2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,8 +11,12 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.example.danie.todoapp2.adapters.BuyingItemsAdapter;
+import com.example.danie.todoapp2.config.Config;
+import com.example.danie.todoapp2.config.DB;
 import com.example.danie.todoapp2.models.BuyingItem;
-import com.example.danie.todoapp2.models.Greatness;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -26,27 +30,44 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Config.tryInitializeDBSampleData(this);
+
         this.listViewTasks = (ListView)findViewById(R.id.listViewTasks);
 
-        BuyingItemsAdapter buyingItemsAdapter = new BuyingItemsAdapter(this, 0, new ArrayList<BuyingItem>() {{
-            add(new BuyingItem("Produto 1", "Descrição 1", 1));
-            add(new BuyingItem("Produto 2", "Descrição 2", 2, Greatness.LITERS));
-            add(new BuyingItem("Produto 3", "Descrição 3", 3));
-            add(new BuyingItem("Produto 4", "Descrição 4", 4, Greatness.PACKAGE));
-            add(new BuyingItem("Produto 5", "Descrição 5", 5));
-            add(new BuyingItem("Produto 6", "Descrição 6", 6, Greatness.POT));
-        }});
+        this.prepareList();
 
-        this.listViewTasks.setAdapter(buyingItemsAdapter);
-
+        final MainActivity self = this;
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(self, AddProductActivity.class);
+                startActivity(i);
             }
         });
+    }
+
+    private void prepareList() {
+        try {
+            JSONArray json = DB.loadDB(this);
+
+            ArrayList<BuyingItem> items = new ArrayList<BuyingItem>();
+            for (int i = 0; i < json.length(); i++) {
+                items.add(BuyingItem.fromJSON(json.getJSONObject(i)));
+            }
+
+            BuyingItemsAdapter buyingItemsAdapter = new BuyingItemsAdapter(this, 0, items);
+
+            this.listViewTasks.setAdapter(buyingItemsAdapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.prepareList();
     }
 
     @Override

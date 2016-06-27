@@ -87,4 +87,13 @@ public class BuyingItem {
 
         return str + " " + this.getShortGreatness();
     }
+
+    public JSONObject toJSON() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("name", this.getName());
+        json.put("amount", this.getAmount());
+        json.put("greatness", this.getGreatness().toString());
+
+        return json;
+    }
 }
