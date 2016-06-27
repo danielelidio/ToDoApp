@@ -22,6 +22,20 @@ public enum Greatness {
             return null;
     }
 
+    public static String getValue(Greatness greatness, boolean pural) {
+        if (greatness == Greatness.KILOGRAM) {
+            return (pural) ? "Kilos" : "Kilo";
+        } else if (greatness == Greatness.PACKAGE) {
+            return (pural) ? "Pacotes" : "Pacote";
+        } else if (greatness == Greatness.POT) {
+            return (pural) ? "Latas" : "Lata";
+        } else if (greatness == Greatness.LITERS) {
+            return (pural) ? "Litros" : "Litro";
+        } else {
+            return "";
+        }
+    }
+
     public static String getShortValue(Greatness greatness, boolean pural) {
         if (greatness == Greatness.KILOGRAM) {
             return (pural) ? "Kg" : "Kg";
